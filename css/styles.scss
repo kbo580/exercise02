@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* りセット */
 *{
   box-sizing: border-box;
 }
@@ -7,8 +8,11 @@
   @return ($px/16) *1rem;
 }
 
-$mainColor: #37952F;
-$subColor: #EAF5E9;
+// $mainColor: #37952F;
+$mainColor: #e6e6e6;
+$subColor: #F6FCF5;
+$subColor: #f7f7f7;
+$breadcrumbs:#EEEEEE;
 $blackColor: #333333;
 $whiteColor: #ffffff;
 $textColor: #333333;
@@ -27,18 +31,6 @@ body,h1,h2,h3,h4,h5,p,ul,li,ol,dl,dt,dd,figure,input,textarea {
 
 }
 
-body {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: rem(14);
-  color: $textColor;
-  line-height: 1.5;
-  position: relative;
-
-  
-  // font-size: calc(0.875rem + ((1vw - 3.75px) * 0.2424));
-  
-}
-
 a { 
   color: inherit;
   text-decoration: none;
@@ -50,24 +42,37 @@ img{
 }
 
 
-header,main,section,footer, div, ul, li, h1,h2,h3,dl,dt,dd
-{
-  // background-color: rgba(0,200,100,0.1);
-  // border: 1px solid rgba(0,0,0,0.1);
-}
-
-.inner{
-  margin: 0 auto;
-  max-width: 1120px;
-  width: 100%;
-  // background-color: rgba(241,92,168,0.2);
-  padding: 0 20px;
+/* サイト全体 */
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: rem(14);
+  color: $textColor;
+  line-height: 1.5;
+  position: relative;
 }
 
 section{
   padding: 50px 0;
 }
 
+.inner{
+  margin: 0 auto;
+  max-width: 1120px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+@media (min-width: 768px){
+  body{
+    font-size: rem(16);
+  }
+  section{
+    padding: 80px 0;
+  }
+}
+
+
+/* ページタイトル */
 .page-title{
   text-align: center;
 }
@@ -91,6 +96,41 @@ section{
   line-height: 2;
 }
 
+@media (min-width: 768px){
+  .page-title{
+    margin-left: 50px;
+    text-align: left;
+  }
+
+  .main-title{
+    font-size: rem(48);
+  }
+
+  .sub-title{
+    font-size: rem(24);
+  }
+
+}
+
+/* ボタン */
+.btn{
+  border: 2px solid $whiteColor;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  padding: 20px;
+  font-size: rem(20);
+  font-weight: bold;
+  transition: background .4s;
+
+  &:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 2px solid $whiteColor;
+  }
+}
+
 /* -------------------------------------------- */
 /* header */
 /* -------------------------------------------- */
@@ -101,7 +141,8 @@ section{
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 
   &__wrapper{
     position: relative;
@@ -145,6 +186,7 @@ section{
 /* -------------------------------------------- */
 /* ナビ */
 /* -------------------------------------------- */
+/* ナビ全体 */
 .nav{
   font-weight: bold;
   font-size: rem(18);
@@ -157,8 +199,18 @@ section{
   &__link{
     padding: 0 18px;
     display: inline-block;
+  }
+}
 
-    
+/* ヘッダーナビ */
+.header__nav{
+  .nav__link{
+    transition: color .4s;
+
+    &:hover{
+      color: $mainColor;
+    }
+
     &.now::after{
       content: "";
       display: block;
@@ -224,16 +276,27 @@ section{
 /* メインビジュアル */
 /* -------------------------------------------- */
 .mainVisual{
-  height: 200px;
-  background: url(../images/bg_header_service.jpg) center / cover no-repeat;
+  height: calc(200 / 375) *100vw;
+  width: 100%;
+  // background: url(../images/bg_header_service.jpg) center / cover no-repeat;
+  background: url(../images/dmy_thumb02.jpg) center / cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 50px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 768px){
+  .mainVisual{
+    justify-content: flex-start;
+  }
+}
 
+@media (min-width: 992px) {
+  .mainVisual{
+    height: 460px;
+    margin-top: 100px;
+  }
 
 }
 
@@ -254,12 +317,21 @@ section{
     font-size: rem(16);
     margin-top: 40px;
   }
-
-
 }
-@media (min-width: 600px) {
 
+@media (min-width: 768px){
+  .catch-copy{
 
+    &__body{
+      font-size: rem(36);
+      text-align: center;
+    }
+  
+    &__text{
+      font-size: rem(16);
+      margin-top: 60px;
+    }
+  }
 }
 
 
@@ -268,7 +340,7 @@ section{
 /* -------------------------------------------- */
 .service{
   background-color: $subColor;
-  padding-top: 0;
+  padding: 0 0 200px;
 
   &__wrapper{
     display: flex;
@@ -305,17 +377,14 @@ section{
   }
 
   &__image-list{
-    // border: 1px solid #000;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 30px;
-    row-gap: 20px;
   }
-
+      
   &__image{
-    // border: 1px solid red;
-    width: 46.6%;
+    width: calc((100% - 20px) /2);
     position: relative;
 
     &::before{
@@ -333,17 +402,90 @@ section{
       object-fit: cover;
     }
 
+    &:nth-child(n + 3){
+      margin-top: 20px;
+    }
+
   }
 
   &__bg{
-    // border: 3px solid #fc2;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
+
+    img{
+      height: 100%;
+      object-fit: cover;
+    }
   }
 }
 
-@media (min-width: 600px) {
 
+@media (min-width: 568px){
+  .service{
+    &__image-list{
+      justify-content: flex-start; 
+    }
+
+    &__image{
+      width: calc((100% - 60px) / 4);
+
+      &:nth-child(n + 3){
+        margin-top: 0px;
+      }
+    }
+
+    &__image:not(:last-child){
+      margin-right: 20px;
+    }
+
+  }
+}
+
+@media (min-width: 768px) {
+  .service{
+    background: linear-gradient(to bottom, #fff 140px, $subColor 140px);
+    &__wrapper{
+      flex-direction: row;
+      position: relative;
+    }
+    
+    &__wrapper:not(:first-child){
+      margin-top: 50px;
+    }
+  
+    &__body{
+      padding: 40px 40px;
+      width: 66%;
+      margin-top: 70px;
+      z-index: 1;
+    }
+  
+    &__sub-title{
+      font-size: rem(20);
+    }
+    
+    &__main-title{
+      font-size: rem(28);
+    }
+  
+    &__bg{
+      width: calc(800 / 1600)*100vw;
+      height: 500px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin: 0;
+    }
+
+    &__wrapper._rev{
+      flex-direction: row-reverse;
+      
+      .service__bg{
+        left: auto;
+        right: 50%;
+      }
+    }
+  }
 
 }
 /* -------------------------------------------- */
@@ -391,37 +533,50 @@ section{
       font-size: rem(24);
     }
   }
+}
 
-  &__reception{
-
+@media (min-width: 768px) {
+  .cta{
+  
+    &__title{
+      font-size: rem(28);
+    }
+  
+    &__phone-number{
+      font-size: rem(48);
+  
+      span{
+        font-size: rem(30);
+      }
+    }
   }
-}
-
-.btn{
-  border: 2px solid $whiteColor;
-  width: 100%;
-  display: inline-block;
-  text-align: center;
-  padding: 20px;
-  font-size: rem(20);
-  font-weight: bold;
-}
-
-@media (min-width: 600px) {
-
 
 }
 
 /* -------------------------------------------- */
 /* パンクズ */
 /* -------------------------------------------- */
-.breadCrumb{
+.breadcrumbs{
   display: none;
 }
-@media (min-width: 600px) {
 
+@media (min-width: 768px) {
+  .breadcrumbs{
+    background-color: $breadcrumbs;
+    display: block;
+    font-size: rem(12);
+
+    .breadcrumb_inner{
+      padding: 15px 50px;
+      a{
+        color: $mainColor;
+        text-decoration: underline $mainColor;
+      }
+    }
+  }
 
 }
+
 /* -------------------------------------------- */
 /* フッター */
 /* -------------------------------------------- */
@@ -429,6 +584,15 @@ section{
   background-color: #333333;
   color: #fff;
   font-weight: bold;
+  font-size: rem(14);
+  
+  &__wrapper{
+    padding: 0 20px;
+  }
+  
+  &__nav{
+    font-size: rem(14);
+  }
 
   &__nav-item{
     border-bottom: 1px solid #707070;
@@ -437,6 +601,9 @@ section{
   &__nav-link{
     padding: 14px 20px;
     display: block;
+    &:hover{
+      text-decoration: underline;
+    }
   }
 
   &__copy{
@@ -445,9 +612,40 @@ section{
   }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 768px) {
+  .footer{
+    height: 110px;
+    
+    &__wrapper{
+      padding: 0 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
+    &__nav-list{
+      display: flex;
+    }
+  
+    &__nav-item{
+      border-bottom: none;
 
+      &:nth-child(n + 2){
+        border-left: 1px solid #707070;
+      }
+
+      &:first-child .footer__nav-link{
+        padding-left: 0;
+      }
+    }
+  
+    &__nav-link{
+      padding: 0px 14px;
+      display: block;
+    }
+
+  }
+  
 }
 
 /* -------------------------------------------- */
